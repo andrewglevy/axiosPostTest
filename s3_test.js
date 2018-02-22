@@ -23,11 +23,11 @@ function generateErrorHTMLOutput(error){
 document.getElementById('postForm').addEventListener('submit', performPostRequest);
 function performPostRequest(e) {
 	let result = document.getElementById('result');
-	let attachment = document.getElementById('attachment').value;
+	let formText = document.getElementById('formText').value;
 	result.innerHTML = '';
 
 	axios.post('https://2gi7ndbzoe.execute-api.us-west-2.amazonaws.com/dev/get-key', JSON.stringify({
-			"data": "data"})
+			"data": formText})
 		)
 		.then(function(response){
 			result.innerHTML = generateSuccessHTMLOutput(response);
