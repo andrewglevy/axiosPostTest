@@ -20,21 +20,22 @@ function generateErrorHTMLOutput(error){
 	return '<h4>Result:>/h4> <p>' + err + '<p>';
 }
 
-document.getElementById('postForm').addEventListener('submit', performPostRequest);
+document.getElementById('postForm').addEventListener('submit', performPostRequest)
+
+
 function performPostRequest(e) {
 	let result = document.getElementById('result');
 	let formText = document.getElementById('formText').value;
 	result.innerHTML = '';
 
 	axios.post('https://2gi7ndbzoe.execute-api.us-west-2.amazonaws.com/dev/get-key', JSON.stringify({
-			"data": formText})
-		)
-		.then(function(response){
-			result.innerHTML = generateSuccessHTMLOutput(response);
-		})
-		.catch(function(error){
-			generateErrorHTMLOutput(error);
-		})
-		e.preventDefault();
-
-	}
+		"data": formText})
+	)
+	.then(function(response){
+		result.innerHTML = generateSuccessHTMLOutput(response);
+	})
+	.catch(function(error){
+		generateErrorHTMLOutput(error);
+	})
+	e.preventDefault();
+}
