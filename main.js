@@ -1,18 +1,3 @@
-// function generateSuccessHTMLOutput(response){
-// 	data = response.data.data;
-// 	console.log(data);
-// 	key = data.Key;
-// 	console.log(key);
-// 	bucket = data.bucket;
-// 	return '<h4>Result: </h4> <p>' + 'key: ' + key + '<br />' +
-// 	'bucket: ' + bucket + '</p>';
-// }
-// function generateErrorHTMLOutput(error){
-// 	err = error.response;
-// 	console.log('error: ', error)
-// 	return '<h4>Result:>/h4> <p>' + err + '<p>';
-// }
-
 let s3;
 let params;
 
@@ -38,11 +23,14 @@ function performPostRequest(e) {
 			Key: result[1],
 			Body: formText
 		}
-
+		return s3.upload(params).promise()
+		.then (function(result){
+			return result;
+		})
 
 	})
 	.catch(function(error){
-		generateErrorHTMLOutput(error);
+		console.log(error);
 	})
 	e.preventDefault();
 }
