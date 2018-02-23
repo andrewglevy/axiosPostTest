@@ -1,53 +1,21 @@
 
-AWS.config.update({
-    accessKeyId: "KEY GOES HERE",
-    secretAccessKey: "KEY GOES HERE",
-    bucket : "s3-post-test",
-    region: "us-west-2"
-});
 
 document.getElementById('postForm').addEventListener('submit', function(event){
 	const formText = document.getElementById('formText').value;
+	const result = document.getElementById('x');
+	result.innerHTML = '';
 
-	axios.post('https://2gi7ndbzoe.execute-api.us-west-2.amazonaws.com/dev/get-key', JSON.stringify({
-		"data": formText}, {
-			headers: {
-				'Access-Control-Allow-Credentials': true,
-				'Access-Control-Allow-Origin': '*',
-				'Content-Type': 'application/json'
-			}
-		})
-	)
+	axios.post('https://2gi7ndbzoe.execute-api.us-west-2.amazonaws.com/dev/get-key', JSON.stringify({"data": formText}))
 	.then(function(response){
-		const data = response.data.data;
-		return [data.bucket, data.Key];
-	})
-	.then(function(result){
-		console.log(result[0], result[1])
-		const s3 = new AWS.S3({
-			apiVersion: '2006-03-01',
-			accessKeyId: "KEY GOES HERE",
-			secretAccessKey: "KEY GOES HERE",
-			region: "us-west-2",
-			params: {
-				Bucket: result[0],
-				Key: result[1],
-				Body: formText
-			}
-		});
-        const params = {
-			Bucket: result[0],
-			Key: result[1],
-			Body: formText
-		}
-		return s3.upload(params).promise()
-		.then(function(result){
-			return result;
-		});
-
+		const url = response.data.url;
+		console.log(url);
+		result.innerHTML = '<h3>URL: </h3><p style="word-wrap:break-word">' + url + '</p>';
+		return url;
 	})
 	.catch(function(error){
 		console.log(error);
+		result.innerHTML = '<p>An Error Occurred. See console for details.</p>';
 	});
+
 	event.preventDefault();
 });
