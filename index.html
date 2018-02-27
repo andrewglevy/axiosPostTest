@@ -9,14 +9,19 @@
 </head>
 
 <body>
-	<form id="postForm">
-		<input type="text" id="formText">
+	<form enctype="multipart/form-data" id="postForm" name="postForm">
+		<!-- <input type="text" id="formText"> <br /> -->
+		<input type="file" id="fileUpload" name="file">
 		<br />
 		<button type="submit">Submit</button>
 	</form>
-	<div id="x"></div>
+	<div id="result"></div>
 	<!-- scripts -->
-	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.201.0.min.js"></script>
+	<!-- <script src="https://sdk.amazonaws.com/js/aws-sdk-2.201.0.min.js"></script> -->
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="./main.js"></script>
 
